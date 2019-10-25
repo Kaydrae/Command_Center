@@ -1,0 +1,31 @@
+Insert
+$connec->beginTransaction();
+$result = $connec->exec("INSERT INTO user_details (userid, password, fname, lname, gender, dtob, country, user_rating, emailid) VALUES
+('abcd123', '123@John', 'John', 'ray', 'M', '1992-06-11', 'USA', '130', 'John123@example-site.com')");
+$connec->commit();
+echo $result;
+
+Select
+$query = "SELECT * FROM user_details where genderr='M'";
+$connec->query($query);
+echo $connec->errorCode();
+
+// select a particular user by id
+$stmt = $pdo->prepare("SELECT * FROM users WHERE id=?");
+$stmt->execute([$id]);
+$user = $stmt->fetch();
+
+$stmt = $pdo->prepare("SELECT * FROM users LIMIT :limit, :offset");
+$stmt->execute(['limit' => $limit, 'offset' => $offset]);
+$data = $stmt->fetchAll();
+// and somewhere later:
+foreach ($data as $row) {
+     echo $row['name']."<br />\n";
+ }
+
+Delete
+/*  Delete some rows from the allcountry table  */
+$count = $connec->exec("DELETE FROM allcountry WHERE country_id = 'AR'");
+/* Return number of rows */
+echo("Number of deleted rows in allcountry table : ". $count);
+

@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css?family=Montserrat:200,400" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/fab.css">
+<link rel="stylesheet" href="css/modal.css">
+<link rel="stylesheet" href="css/rgb.css">
+<link rel="stylesheet" href="css/button.css">
+<link rel="stylesheet" href="css/lights.css">
+<script src="js/jquery.js"></script>
+<script src="js/moment.min.js"></script>
+
+</head>
+<body>
+
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Some text in the Modal..</p>
+  </div>
+
+</div>
+
+<div id="LightSelector" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div class="light">
+      <h1 id="IoTDeviceName">Smart Light</h1>
+      <button class="button inline" value="1">On</button>
+      <button class="button inline" value="0">Off</button>
+      <h2 id="LightStatusMessage">Light is on!</h2>
+    </div>
+  </div>
+
+</div>
+
+<div id="LightRBSelector" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+
+    <label class="orange">
+      <input type="radio" name="color" value="orange">
+      <div class="layer"></div>
+      <div class="button"><span></span></div>
+    </label>
+
+    <label class="amber">
+      <input type="radio" name="color" value="amber">
+      <div class="layer"></div>
+      <div class="button"><span></span></div>
+    </label>
+
+    <label class="lime">
+      <input type="radio" name="color" value="lime">
+      <div class="layer"></div>
+      <div class="button"><span></span></div>
+    </label>
+
+    <label class="teal">
+      <input type="radio" name="color" value="teal">
+      <div class="layer"></div>
+      <div class="button"><span></span></div>
+    </label>
+
+    <label class="blue">
+      <input type="radio" name="color" value="blue">
+      <div class="layer"></div>
+      <div class="button"><span></span></div>
+    </label>
+
+    <label class="indigo">
+      <input type="radio" name="color" value="indigo">
+      <div class="layer"></div>
+      <div class="button"><span></span></div>
+    </label>
+
+
+  </div>
+
+</div>
+
+<!-- partial:index.partial.html -->
+<div class="app">
+  <header class="header">
+    <div class="header__left">
+      <span>Home</span>
+    </div>
+    <div class="header__right">
+      <p id="date">Thu, 14 Jun | 06:20 AM</p>
+    </div>
+  </header>
+  
+  <nav class="nav">
+    <ul class="nav__menu">
+<!--      <li class="nav__item">
+        <a href="#vienna" class="nav__link" data-scroll-to>
+          <div class="media">
+            <img src="https://lonelyplanetimages.imgix.net/mastheads/stock-photo-st-stephens-church-112868985.jpg?sharp=10&vib=20&w=2000" alt="" class="media__img">
+            <p class="media__content">
+              <strong>Vienna</strong><br />
+              Austria
+            </p>
+          </div>
+        </a>
+      </li>
+      <li class="nav__item">
+        <a href="#lisbon" class="nav__link" data-scroll-to>
+          <div class="media">
+            <img src="https://lonelyplanetimages.imgix.net/mastheads/54989636.jpg?sharp=10&vib=20&w=2000" alt="" class="media__img">
+            <p class="media__content">
+              <strong>Lisbon</strong><br />
+              Portugal
+            </p>
+          </div>
+        </a>
+      </li>
+      <li class="nav__item">
+        <a href="#newyork" class="nav__link" data-scroll-to>
+          <div class="media">
+            <img src="https://lonelyplanetimages.imgix.net/mastheads/GettyImages-538096543_medium.jpg?sharp=10&vib=20&w=2000" alt="" class="media__img">
+            <p class="media__content">
+              <strong>New York</strong><br />
+              USA
+            </p>
+          </div>
+        </a>
+      </li>-->
+    </ul>
+    <a href="#" class="float" onclick="AddRoom(event)">
+      <img src="image/plus.png" width="15px" height="15px" class="my-float"/>
+    </a>
+  </nav>
+  
+  <main class="main">
+    <!--<article class="section" id="vienna" data-section>
+    <header class="section__header" style="background-image: url('https://lonelyplanetimages.imgix.net/mastheads/stock-photo-st-stephens-church-112868985.jpg?sharp=10&w=2000');">
+      <h1 class="section__title">Vienna</h1>
+      <p class="section__subtitle ">48.21°N, 16.36°E</p>
+      <div class="section__controls">
+        <button class="btn btn--prev" title="Previous">
+          <span class="arrow arrow--left"></span>
+        </button>
+        <button class="btn btn--next" title="Next">
+          <span class="arrow arrow--right"></span>
+        </button>
+        <div class="user">
+          <img src="https://source.unsplash.com/200x200/?people" class="user__img" alt="" />
+          <span class="user__name">Jamie</span>
+        </div>
+      </div>
+    </header>
+    <div class="section__content">
+      <ul class="boxgrid">
+        <li class="boxgrid__item">
+          <a href="#" class="box box--weather">
+            <p><span class="text--large">27°C</span><br />Cloudy</p>
+          </a>
+        </li>
+        <li class="boxgrid__item boxgrid__item--wide">
+          <a href="#" class="box box--image">
+            <img src="https://source.unsplash.com/600x400/?nature" class="box__img" alt="" />
+          </a>
+        </li>
+        <li class="boxgrid__item boxgrid__item--push">
+          <a href="#" class="box box--image">
+            <img src="https://source.unsplash.com/300x300/?people" class="box__img" alt="" />
+          </a>
+        </li>
+        <li class="boxgrid__item">
+          <a href="#" class="box box--cost">
+            <p><span class="text--large">120€</span><br />Daily cost</p>
+          </a>
+        </li>
+        <li class="boxgrid__item boxgrid__item--push">
+          <a href="#" class="box box--video">
+            <img src="https://source.unsplash.com/300x300/?art" class="box__img" alt="" />
+          </a>
+        </li>
+        <li class="boxgrid__item">
+          <a href="#" class="box box--locations">
+            <p><span class="text--large">189</span><br />Locations</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </article>
+
+    <article class="section" id="lisbon" data-section>
+      <header class="section__header" style="background-image: url('https://lonelyplanetimages.imgix.net/mastheads/54989636.jpg?sharp=10&w=2000');">
+        <h1 class="section__title">Lisbon</h1>
+        <p class="section__subtitle">38.44°N, 09.82°W</p>
+        <div class="section__controls">
+          <button class="btn btn--prev" title="Previous">
+            <span class="arrow arrow--left"></span>
+          </button>
+          <button class="btn btn--next" title="Next">
+            <span class="arrow arrow--right"></span>
+          </button>
+          <div class="user">
+            <img src="https://source.unsplash.com/200x200/?people" class="user__img" alt="" />
+            <span class="user__name">Jamie</span>
+          </div>
+        </div>
+      </header>
+      <div class="section__content">
+        <ul class="boxgrid">
+          <li class="boxgrid__item">
+            <a href="#" class="box box--weather">
+              <p><span class="text--large">22°C</span><br />Rain</p>
+            </a>
+          </li>
+          <li class="boxgrid__item">
+            <a href="#" class="box box--image">
+              <img src="https://source.unsplash.com/300x300/?nature" class="box__img" alt="" />
+            </a>
+          </li>
+          <li class="boxgrid__item boxgrid__item--push">
+            <a href="#" class="box box--video">
+              <img src="https://source.unsplash.com/300x300/?art" class="box__img" alt="" />
+            </a>
+          </li>
+          <li class="boxgrid__item boxgrid__item--wide">
+            <a href="#" class="box box--image">
+              <img src="https://source.unsplash.com/600x400/?technology" class="box__img" alt="" />
+            </a>
+          </li>
+          <li class="boxgrid__item boxgrid__item--push">
+            <a href="#" class="box box--locations">
+              <p><span class="text--large">272</span><br />Locations</p>
+            </a>
+          </li>
+          <li class="boxgrid__item">
+            <a href="#" class="box box--cost">
+              <p><span class="text--large">80€</span><br />Daily cost</p>
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+    </article>
+
+    <article class="section" id="newyork" data-section>
+      <header class="section__header" style="background-image: url('https://lonelyplanetimages.imgix.net/mastheads/GettyImages-538096543_medium.jpg?sharp=10&vib=20&w=2000');">
+        <h1 class="section__title">New York</h1>
+        <p class="section__subtitle">40.42°N, 74.02°W</p>
+        <div class="section__controls">
+          <button class="btn btn--prev" title="Previous">
+            <span class="arrow arrow--left"></span>
+          </button>
+          <button class="btn btn--next" title="Next">
+            <span class="arrow arrow--right"></span>
+          </button>
+          <div class="user">
+            <img src="https://source.unsplash.com/200x200/?nature" class="user__img" alt="" />
+            <span class="user__name">Jamie</span>
+          </div>
+        </div>
+      </header>
+      <div class="section__content">
+        <ul class="boxgrid">
+          <li class="boxgrid__item boxgrid__item--wide">
+            <a href="#" class="box box--image">
+              <img src="https://source.unsplash.com/600x400/?art" class="box__img" alt="" />
+            </a>
+          </li>
+          <li class="boxgrid__item">
+            <a href="#" class="box box--weather">
+              <p><span class="text--large">30°C</span><br />Sunny</p>
+            </a>
+          </li>
+          <li class="boxgrid__item boxgrid__item--push">
+            <a href="#" class="box box--video">
+              <img src="https://source.unsplash.com/300x300/?art" class="box__img" alt="" />
+            </a>
+          </li>
+          <li class="boxgrid__item boxgrid__item--push">
+            <a href="#" class="box box--image">
+              <img src="https://source.unsplash.com/300x300/?people" class="box__img" alt="" />
+            </a>
+          </li>
+          <li class="boxgrid__item boxgrid__item--push">
+            <a href="#" class="box box--locations">
+              <p><span class="text--large">1.366</span><br />Locations</p>
+            </a>
+          </li>
+          <li class="boxgrid__item">
+            <a href="#" class="box box--cost">
+              <p><span class="text--large">150$</span><br />Daily cost</p>
+            </a>
+          </li>
+          <li class="boxgrid__item">
+            <a href="#" class="box box--image">
+              <img src="https://source.unsplash.com/300x300/?technology" class="box__img" alt="" />
+            </a>
+          </li>
+        </ul>
+      </div>
+    </article>-->
+  </main>
+  
+  <button class="scrollctrl scrollctrl--prev" data-scroll-dir="prev">
+    <span class="arrow arrow--large arrow--up"></span>
+  </button>
+  <button class="scrollctrl scrollctrl--next" data-scroll-dir="next">
+    <span class="arrow arrow--large arrow--down"></span>
+  </button>
+  
+  <footer class="footer">
+    <!--<p>a pen by <a href="https://twitter.com/mxbck">@mxbck</a></p>-->
+    <!--<p>design by <a href="https://dribbble.com/shots/2652364-Digital-Walls">Cosmin Capitanu</a></p>-->
+    
+    <p class="footer__more">
+      <!--<a href="https://codepen.io/mxbck/pen/81020404c9d5fd873a717c4612c914dd?editors=1000" target="_blank" rel="noopener noreferrer">View Source</a>-->
+      <!--&nbsp;&middot;&nbsp;-->
+      <!--<a href="https://mxb.at/blog/layouts-of-tomorrow/">Read More</a>-->
+    </p>
+  </footer>
+</div>
+<!-- partial -->
+  <!--<script  src="js/Scroll.js"></script>-->
+  <script src="js/TimeDate.js"></script>
+  <script>
+    $(document).ready(function () {
+      const date = new Date(); //Date Object
+      TimeDate = new TimeDate(date); //TimeDate Object
+
+      setTime(TimeDate);
+      getAllRooms();
+      setInterval(setTime, 60000, TimeDate);
+
+      const SELECTORS = {
+        section: '[data-section]',
+        scrollTo: '[data-scroll-to]',
+        scrollDir: '[data-scroll-dir]' };
+
+
+      const scrollToElements = document.querySelectorAll(SELECTORS.scrollTo);
+      const scrollDirElements = document.querySelectorAll(SELECTORS.scrollDir);
+
+
+      $('.close').click(function () {
+        $('#myModal').hide();
+        $('#LightSelector').hide();
+
+      });
+
+     /* $('.section').on('load', function(){
+
+        const sectionsArray = $('[data-section]').length;
+        alert(sectionsArray);
+      });
+
+      console.log(sectionsArray);*/
+
+      $(document).on('click', '[data-scroll-to]', function (e) {
+        e.preventDefault();
+        //console.log(e);
+
+        const targetId = this.getAttribute('href');
+        const target = document.querySelector(targetId);
+
+        if (target) {
+          sectionsArray.forEach((section, index) => {
+            if (section.id === targetId.replace('#', '')) {
+              currentSectionIndex = index;
+            }
+          });
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+
+      });
+
+      //$(document).on('click', '[data-scroll-dir]', function (e) {
+
+        //const direction =
+
+
+
+     // });
+
+    });
+
+
+    function getAllRooms() {
+      $.ajax({
+        dataType: 'JSON',
+        url: 'handler/roomHandler.php?Calling=GetAllRooms',
+        type: 'POST',
+        success: function(data) {
+          //console.log(data);
+          //console.log(data.length);
+
+          for(let i = 1; i < data.length; i++){
+
+            const RoomID  = data[i].ID;
+            const RoomName = data[i].Name;
+            const RoomDesc = data[i].Desc;
+            const RoomImageSmall = data[i].ImageSmall;
+            const RoomImageBig = data[i].ImageBig;
+            const Picture = "image/room/" + RoomImageBig;
+            const ID = RoomName.replace(/ /g,"_");
+
+            //Room Select side
+            $('.nav__menu').append( "<li class='nav__item'>"
+                   + "<a href='#"+ ID + "' class='nav__link' data-scroll-to >"
+                   + "<div class='media'>"
+                   + "<img src='image/room/" + RoomImageSmall +"' alt='' class='media__img'>"
+                   + "<p class='media__content'>"
+                   + "<strong>" + RoomName +"</strong><br />"
+                   + RoomDesc
+                   + "</p>"
+                   + "</div>"
+                   + "</a>"
+                   + "</li>");
+            //The Actual Room
+            $('.main').append("<article class='section' id='"+ ID + "' data-section>"
+                      +"<header class='section__header' style='background-image: url(" + Picture + ")'>"
+                      +"<h1 class='section__title'>" + RoomName + "</h1>"
+                      +"<p class='section__subtitle '>" + RoomDesc + "</p>"
+                      +"<div class='section__controls'>"
+                      +"<button class='btn btn--prev' title='Previous'>"
+                      +"<span class='arrow arrow--left'></span>"
+                      +"</button>"
+                      +"<button class='btn btn--next' title='Next'>"
+                      +"<span class='arrow arrow--right'></span>"
+                      +"</button>"
+                      +"<div class='user'>"
+                      +"<img src='https://source.unsplash.com/200x200/?people' class='user__img' alt='' />"
+                      +"<span class='user__name'>Jamie</span>"
+                      +"</div>"
+                      +"</div>"
+                      +"</header>"
+                      +"<div class='section__content'>"
+                      +"<ul class='boxgrid'>"
+                      +"</ul>"
+                      +"</div>"
+                      +"</article>");
+
+            GetRoomData(RoomID, ID);
+          }
+
+
+        },
+        error: function (request, status, error) {
+          console.log(request.responseText);
+          console.log(status);
+          console.log(error);
+        }
+      });
+
+
+    }
+
+    function GetRoomData(RoomID, SectionID) {
+
+      $.ajax({
+        url: 'handler/iotHandler.php?Calling=GetIoTDevicesInRoom&RoomID=' + RoomID,
+        type: 'POST',
+        dataType: 'json',
+        success: function(data) {
+          console.log(data);
+
+          for(let i = 1; i < data.length; i++){
+
+            const DeviceName  = data[i].Name;
+            const IPAddress   = data[i].IP;
+            const Type        = data[i].Type[0];
+            const Hostname    = data[i].Hostname;
+            const PictureName = data[i].ImageNumber;
+
+            //boxgrid__item--wide
+
+            if(i === 3 || i === 5 || i === 10){
+              $('#' + SectionID + ' .boxgrid').append(" <li class='boxgrid__item boxgrid__item--wide'>"
+                      +"        <a href='#' onclick='openIoTDevice()' class='box box--image'>"
+                      +"            <img src='image/iotTile/" + PictureName + ".jpg' width='200' height='200' class='box__img' alt='' />"
+                      +"        </a>"
+                      +"    </li>");
+            }else{
+              $('#' + SectionID + ' .boxgrid').append(" <li class='boxgrid__item '>"
+                      +"        <a href='#' onclick='openIoTDevice()' class='box box--image'>"
+                      +"            <img src='image/iotTile/" + PictureName + ".jpg' width='200' height='200' class='box__img' alt='' />"
+                      +"        </a>"
+                      +"    </li>");
+            }
+
+
+          }
+
+        },
+        error: function (request, status, error) {
+          console.log(request.responseText);
+          console.log(status);
+          console.log(error);
+        }
+      });
+
+
+    }
+    
+    function setTime(TimeDate){
+
+
+      const currentDate = TimeDate.Date();
+      const currentTime = TimeDate.TimeNormal();
+
+      //console.log("timeUpdated");
+      $('#date').text(currentDate + ' | ' + currentTime);
+    }
+
+    function AddRoom(e) {
+      e.preventDefault();
+      $('#myModal').show();
+      console.log("f")
+    }
+
+    function openIoTDevice(/*Type, IPAddress, DeviceName*/) {
+      //e.preventDefault();
+      //console.log(Type + ' ' + IPAddress + ' ' + DeviceName);
+      $('#LightSelector').show();
+
+
+    }
+  </script>
+</body>
+</html>
