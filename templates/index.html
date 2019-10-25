@@ -4,15 +4,16 @@
   <meta charset="UTF-8">
   <title>Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="about:blank">
 <link href="https://fonts.googleapis.com/css?family=Montserrat:200,400" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/fab.css">
-<link rel="stylesheet" href="css/modal.css">
-<link rel="stylesheet" href="css/rgb.css">
-<link rel="stylesheet" href="css/button.css">
-<link rel="stylesheet" href="css/lights.css">
-<script src="js/jquery.js"></script>
-<script src="js/moment.min.js"></script>
+<link rel="stylesheet" href="../static/css/style.css">
+<link rel="stylesheet" href="../static/css/fab.css">
+<link rel="stylesheet" href="../static/css/modal.css">
+<link rel="stylesheet" href="../static/css/rgb.css">
+<link rel="stylesheet" href="../static/css/button.css">
+<link rel="stylesheet" href="../static/css/lights.css">
+<script src="../static/js/jquery.js"></script>
+<script src="../static/js/moment.min.js"></script>
 
 </head>
 <body>
@@ -104,7 +105,7 @@
   
   <nav class="nav">
     <ul class="nav__menu">
-<!--      <li class="nav__item">
+     <li class="nav__item">
         <a href="#vienna" class="nav__link" data-scroll-to>
           <div class="media">
             <img src="https://lonelyplanetimages.imgix.net/mastheads/stock-photo-st-stephens-church-112868985.jpg?sharp=10&vib=20&w=2000" alt="" class="media__img">
@@ -136,15 +137,15 @@
             </p>
           </div>
         </a>
-      </li>-->
+      </li>
     </ul>
-    <a href="#" class="float" onclick="AddRoom(event)">
-      <img src="image/plus.png" width="15px" height="15px" class="my-float"/>
-    </a>
+    <!--<a href="#" class="float" onclick="AddRoom(event)">
+      <img src="../image/plus.png" width="15px" height="15px" class="my-float"/>
+    </a>-->
   </nav>
   
   <main class="main">
-    <!--<article class="section" id="vienna" data-section>
+    <article class="section" id="vienna" data-section>
     <header class="section__header" style="background-image: url('https://lonelyplanetimages.imgix.net/mastheads/stock-photo-st-stephens-church-112868985.jpg?sharp=10&w=2000');">
       <h1 class="section__title">Vienna</h1>
       <p class="section__subtitle ">48.21°N, 16.36°E</p>
@@ -307,7 +308,7 @@
           </li>
         </ul>
       </div>
-    </article>-->
+    </article>
   </main>
   
   <button class="scrollctrl scrollctrl--prev" data-scroll-dir="prev">
@@ -330,7 +331,7 @@
 </div>
 <!-- partial -->
   <!--<script  src="js/Scroll.js"></script>-->
-  <script src="js/TimeDate.js"></script>
+  <script src="../static/js/TimeDate.js"></script>
   <script>
     $(document).ready(function () {
       const date = new Date(); //Date Object
@@ -396,108 +397,61 @@
     function getAllRooms() {
       $.ajax({
         dataType: 'JSON',
-        url: 'handler/roomHandler.php?Calling=GetAllRooms',
+        url: '/handler/roomHandler',
         type: 'POST',
-        success: function(data) {
-          //console.log(data);
-          //console.log(data.length);
-
-          for(let i = 1; i < data.length; i++){
-
-            const RoomID  = data[i].ID;
-            const RoomName = data[i].Name;
-            const RoomDesc = data[i].Desc;
-            const RoomImageSmall = data[i].ImageSmall;
-            const RoomImageBig = data[i].ImageBig;
-            const Picture = "image/room/" + RoomImageBig;
-            const ID = RoomName.replace(/ /g,"_");
-
-            //Room Select side
-            $('.nav__menu').append( "<li class='nav__item'>"
-                   + "<a href='#"+ ID + "' class='nav__link' data-scroll-to >"
-                   + "<div class='media'>"
-                   + "<img src='image/room/" + RoomImageSmall +"' alt='' class='media__img'>"
-                   + "<p class='media__content'>"
-                   + "<strong>" + RoomName +"</strong><br />"
-                   + RoomDesc
-                   + "</p>"
-                   + "</div>"
-                   + "</a>"
-                   + "</li>");
-            //The Actual Room
-            $('.main').append("<article class='section' id='"+ ID + "' data-section>"
-                      +"<header class='section__header' style='background-image: url(" + Picture + ")'>"
-                      +"<h1 class='section__title'>" + RoomName + "</h1>"
-                      +"<p class='section__subtitle '>" + RoomDesc + "</p>"
-                      +"<div class='section__controls'>"
-                      +"<button class='btn btn--prev' title='Previous'>"
-                      +"<span class='arrow arrow--left'></span>"
-                      +"</button>"
-                      +"<button class='btn btn--next' title='Next'>"
-                      +"<span class='arrow arrow--right'></span>"
-                      +"</button>"
-                      +"<div class='user'>"
-                      +"<img src='https://source.unsplash.com/200x200/?people' class='user__img' alt='' />"
-                      +"<span class='user__name'>Jamie</span>"
-                      +"</div>"
-                      +"</div>"
-                      +"</header>"
-                      +"<div class='section__content'>"
-                      +"<ul class='boxgrid'>"
-                      +"</ul>"
-                      +"</div>"
-                      +"</article>");
-
-            GetRoomData(RoomID, ID);
-          }
-
-
-        },
-        error: function (request, status, error) {
-          console.log(request.responseText);
-          console.log(status);
-          console.log(error);
-        }
-      });
-
-
-    }
-
-    function GetRoomData(RoomID, SectionID) {
-
-      $.ajax({
-        url: 'handler/iotHandler.php?Calling=GetIoTDevicesInRoom&RoomID=' + RoomID,
-        type: 'POST',
-        dataType: 'json',
         success: function(data) {
           console.log(data);
+          //console.log(data.length);
 
-          for(let i = 1; i < data.length; i++){
+          // for(let i = 1; i < data.length; i++){
 
-            const DeviceName  = data[i].Name;
-            const IPAddress   = data[i].IP;
-            const Type        = data[i].Type[0];
-            const Hostname    = data[i].Hostname;
-            const PictureName = data[i].ImageNumber;
+          //   const RoomID  = data[i].ID;
+          //   const RoomName = data[i].Name;
+          //   const RoomDesc = data[i].Desc;
+          //   const RoomImageSmall = data[i].ImageSmall;
+          //   const RoomImageBig = data[i].ImageBig;
+          //   const Picture = "image/room/" + RoomImageBig;
+          //   const ID = RoomName.replace(/ /g,"_");
 
-            //boxgrid__item--wide
+          //   //Room Select side
+          //   $('.nav__menu').append( "<li class='nav__item'>"
+          //          + "<a href='#"+ ID + "' class='nav__link' data-scroll-to >"
+          //          + "<div class='media'>"
+          //          + "<img src='../image/room/" + RoomImageSmall +"' alt='' class='media__img'>"
+          //          + "<p class='media__content'>"
+          //          + "<strong>" + RoomName +"</strong><br />"
+          //          + RoomDesc
+          //          + "</p>"
+          //          + "</div>"
+          //          + "</a>"
+          //          + "</li>");
+          //   //The Actual Room
+          //   $('.main').append("<article class='section' id='"+ ID + "' data-section>"
+          //             +"<header class='section__header' style='background-image: url(" + Picture + ")'>"
+          //             +"<h1 class='section__title'>" + RoomName + "</h1>"
+          //             +"<p class='section__subtitle '>" + RoomDesc + "</p>"
+          //             +"<div class='section__controls'>"
+          //             +"<button class='btn btn--prev' title='Previous'>"
+          //             +"<span class='arrow arrow--left'></span>"
+          //             +"</button>"
+          //             +"<button class='btn btn--next' title='Next'>"
+          //             +"<span class='arrow arrow--right'></span>"
+          //             +"</button>"
+          //             +"<div class='user'>"
+          //             +"<img src='https://source.unsplash.com/200x200/?people' class='user__img' alt='' />"
+          //             +"<span class='user__name'>Jamie</span>"
+          //             +"</div>"
+          //             +"</div>"
+          //             +"</header>"
+          //             +"<div class='section__content'>"
+          //             +"<ul class='boxgrid'>"
+          //             +"</ul>"
+          //             +"</div>"
+          //             +"</article>");
 
-            if(i === 3 || i === 5 || i === 10){
-              $('#' + SectionID + ' .boxgrid').append(" <li class='boxgrid__item boxgrid__item--wide'>"
-                      +"        <a href='#' onclick='openIoTDevice()' class='box box--image'>"
-                      +"            <img src='image/iotTile/" + PictureName + ".jpg' width='200' height='200' class='box__img' alt='' />"
-                      +"        </a>"
-                      +"    </li>");
-            }else{
-              $('#' + SectionID + ' .boxgrid').append(" <li class='boxgrid__item '>"
-                      +"        <a href='#' onclick='openIoTDevice()' class='box box--image'>"
-                      +"            <img src='image/iotTile/" + PictureName + ".jpg' width='200' height='200' class='box__img' alt='' />"
-                      +"        </a>"
-                      +"    </li>");
-            }
+          //   GetRoomData(RoomID, ID);
+          // }
 
-
-          }
 
         },
         error: function (request, status, error) {
@@ -509,6 +463,53 @@
 
 
     }
+
+    // function GetRoomData(RoomID, SectionID) {
+
+    //   $.ajax({
+    //     url: 'handler/iotHandler.php?Calling=GetIoTDevicesInRoom&RoomID=' + RoomID,
+    //     type: 'POST',
+    //     dataType: 'json',
+    //     success: function(data) {
+    //       console.log(data);
+
+    //       // for(let i = 1; i < data.length; i++){
+
+    //       //   const DeviceName  = data[i].Name;
+    //       //   const IPAddress   = data[i].IP;
+    //       //   const Type        = data[i].Type[0];
+    //       //   const Hostname    = data[i].Hostname;
+    //       //   const PictureName = data[i].ImageNumber;
+
+    //       //   //boxgrid__item--wide
+
+    //       //   if(i === 3 || i === 5 || i === 10){
+    //       //     $('#' + SectionID + ' .boxgrid').append(" <li class='boxgrid__item boxgrid__item--wide'>"
+    //       //             +"        <a href='#' onclick='openIoTDevice()' class='box box--image'>"
+    //       //             +"            <img src='image/iotTile/" + PictureName + ".jpg' width='200' height='200' class='box__img' alt='' />"
+    //       //             +"        </a>"
+    //       //             +"    </li>");
+    //       //   }else{
+    //       //     $('#' + SectionID + ' .boxgrid').append(" <li class='boxgrid__item '>"
+    //       //             +"        <a href='#' onclick='openIoTDevice()' class='box box--image'>"
+    //       //             +"            <img src='image/iotTile/" + PictureName + ".jpg' width='200' height='200' class='box__img' alt='' />"
+    //       //             +"        </a>"
+    //       //             +"    </li>");
+    //       //   }
+
+
+    //       // }
+
+    //     },
+    //     error: function (request, status, error) {
+    //       console.log(request.responseText);
+    //       console.log(status);
+    //       console.log(error);
+    //     }
+    //   });
+
+
+    // }
     
     function setTime(TimeDate){
 
