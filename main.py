@@ -6,7 +6,7 @@ app = Flask(__name__, template_folder="templates")
 def home():
     return render_template("/index.html")
 
-@app.route("/handler/roomHandler", methods=['GET', 'POST']) 
+@app.route("/handler/roomHandler", methods=['GET', 'POST'])
 def room_handler():
     return json.dumps({'first':'hello', 'second':'there'})
 
