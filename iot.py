@@ -3,8 +3,7 @@ from flask_socketio import emit
 
 device_types = [
     "rgb_light",
-    "dimmed_light",
-    "box_light"
+    "dimmed_light"
 ]
 
 # IoT Manager instance

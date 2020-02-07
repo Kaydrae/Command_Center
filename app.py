@@ -5,7 +5,7 @@ from login import User, login_manager
 from forms import LoginForm
 from database import database_interface
 from iot import device_manager
-from iotmanager import Manager
+from app_socketio import IoTControl
 import logging
 
 iot_app_logger = logging.basicConfig()
@@ -15,15 +15,17 @@ app = Flask(__name__)
 app.config['DEBUG'] = True
 app.config['SECRET_KEY'] = ''
 
-# iot manager instance
-iot_manager = Manager(["rgb_light"], host="0.0.0.0")
+# add socket_io wrapper
+socket_io = SocketIO(app)
+
+# add namespaces
+socket_io.on_namespace(IoTControl("/iot-control"))
 
 
 @app.route('/')
 def home():
-    data = iot_manager.get_client_data()
 
-    return render_template("control.html", device_data=data)
+    return render_template("control.html", device_data=device_manager.get_client_data())
 
 
 @app.route('/login', methods=['GET', 'POST'])

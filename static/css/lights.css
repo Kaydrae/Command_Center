@@ -1,0 +1,19 @@
+.LightSelector{
+    width: 50%;
+}
+
+.light{
+    text-align: center;
+}
+
+#RGB_status_Message {
+    display: show;
+}
+
+#RGB_Color {
+    display: none;
+}
+
+.RGB_Color {
+    text-align: center;
+}
