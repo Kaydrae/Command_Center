@@ -416,8 +416,7 @@
       const DayofWeek = moment(this.utc).format('ddd');
       const month     = moment(this.utc).format('MMM');
       const day       = moment(this.utc).format('DD');
-      document.getElementById('date').innerHTML =
-              h + ":" + m + ":" + s;
+      $('#date').text(DayofWeek.toUpperCase() + ', ' + day + " " + month.toUpperCase() + " | " + h + ":" + m + ":" + s);
       var t = setTimeout(startTime, 500);
     }
     function checkTime(i) {
