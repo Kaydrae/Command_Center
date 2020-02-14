@@ -8,7 +8,7 @@ class IoTControl(Namespace):
     def on_connect(self):
         data = device_manager.get_client_data()
 
-        emit("client_data")
+        emit("client_data", data)
 
     def on_update_light(self, data):
         return

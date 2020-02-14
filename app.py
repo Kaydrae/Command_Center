@@ -16,7 +16,7 @@ app.config['DEBUG'] = True
 app.config['SECRET_KEY'] = ''
 
 # add socket_io wrapper
-socket_io = SocketIO(app)
+socket_io = SocketIO(app, async_mode="threading")
 
 # add namespaces
 socket_io.on_namespace(IoTControl("/iot-control"))
@@ -25,7 +25,7 @@ socket_io.on_namespace(IoTControl("/iot-control"))
 @app.route('/')
 def home():
 
-    return render_template("control.html", device_data=device_manager.get_client_data())
+    return render_template("index.html", device_data=device_manager.get_client_data())
 
 
 @app.route('/login', methods=['GET', 'POST'])

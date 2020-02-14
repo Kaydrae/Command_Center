@@ -5,14 +5,14 @@
   <title>Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://fonts.googleapis.com/css?family=Montserrat:200,400" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-<link rel="stylesheet" type="text/css" href="css/style.css">
-<link rel="stylesheet" type="text/css" href="css/fab.css">
-<link rel="stylesheet" type="text/css" href="css/modal.css">
-<link rel="stylesheet" type="text/css" href="css/rgb.css">
-<link rel="stylesheet" type="text/css" href="css/button.css">
-<link rel="stylesheet" type="text/css" href="css/lights.css">
-<script src="js/jquery.js"></script>
-<script src="js/moment.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+<link rel="stylesheet" type="text/css" href="/static/css/fab.css">
+<link rel="stylesheet" type="text/css" href="/static/css/modal.css">
+<link rel="stylesheet" type="text/css" href="/static/css/rgb.css">
+<link rel="stylesheet" type="text/css" href="/static/css/button.css">
+<link rel="stylesheet" type="text/css" href="/static/css/lights.css">
+<script src="/static/js/jquery.js"></script>
+<script src="/static/js/moment.min.js"></script>
 
 </head>
 <body>
@@ -148,13 +148,13 @@
       </li>-->
     </ul>
     <a href="#" class="float" id="Add_Room" onclick="getButton(this)">
-      <img src="image/plus.png" width="15px" height="15px" class="my-float"/>
+      <img src="/static/image/plus.png" width="15px" height="15px" class="my-float"/>
     </a>
   </nav>
   
   <main class="main">
     <article class="section" id="Engineering_Lab" data-section>
-    <header class="section__header" style="background-image: url('image/room/Robotics_Lab.jpg');">
+    <header class="section__header" style="background-image: url('/static/image/room/Robotics_Lab.jpg');">
       <h1 class="section__title">Engineering Lab</h1>
       <p class="section__subtitle ">33.378°N, -111.976°W</p>
       <div class="section__controls">
@@ -179,12 +179,12 @@
         </li>
         <li class="boxgrid__item boxgrid__item--wide" id="Engineering_Lab_Light" onclick="getButton(this)">
           <a href="#" class="box box--image">
-            <img src="image/iotTile/Light4.jpg" class="box__img" alt="" />
+            <img src="/static/image/iotTile/Light4.jpg" class="box__img" alt="" />
           </a>
         </li>
         <li class="boxgrid__item boxgrid__item--push" id="Engineering_Lab_RGB" onclick="getButton(this)">
           <a href="#" class="box box--image">
-            <img src="image/iotTile/LightsRGB1.jpg" class="box__img" alt="" />
+            <img src="/static/image/iotTile/LightsRGB1.jpg" class="box__img" alt="" />
           </a>
         </li>
         <li class="boxgrid__item">
@@ -207,7 +207,7 @@
   </article>
 
     <article class="section" id="Makers_Lab" data-section>
-      <header class="section__header" style="background-image: url('image/room/Maker_Space.jpg');">
+      <header class="section__header" style="background-image: url('/static/image/room/Maker_Space.jpg');">
         <h1 class="section__title">Maker's Lab</h1>
         <p class="section__subtitle">33.378°N, -111.976°W</p>
         <div class="section__controls">
@@ -232,12 +232,12 @@
           </li>
           <li class="boxgrid__item boxgrid__item--wide" id="Maker's_Lab_Light" onclick="getButton(this)">
             <a href="#" class="box box--image">
-              <img src="image/iotTile/Light4.jpg" class="box__img" alt="" />
+              <img src="/static/image/iotTile/Light4.jpg" class="box__img" alt="" />
             </a>
           </li>
           <li class="boxgrid__item boxgrid__item--push" id="Maker's_Lab_RGB" onclick="getButton(this)">
             <a href="#" class="box box--image">
-              <img src="image/iotTile/LightsRGB1.jpg" class="box__img" alt="" />
+              <img src="/static/image/iotTile/LightsRGB1.jpg" class="box__img" alt="" />
             </a>
           </li>
           <li class="boxgrid__item boxgrid__item--wide">
@@ -339,9 +339,9 @@
 </div>
 <!-- partial -->
 <!-- On page load, Page needs to receive status of lights and RGB. Determine if Smart light is on/off, and if RGB light is on/off and what color it's set to. -->
-  <script  src="js/Scroll.js"></script>
-  <script src="js/TimeDate.js"></script>
-  <script src="js/socket.io/socket.io.js"></script>
+  <script  src="/static/js/Scroll.js"></script>
+  <script src="/static/js/TimeDate.js"></script>
+  <script src="/static/js/socket.io/socket.io.js"></script>
   <script>
     $(document).ready(function () {
       /*const date = new Date(); //Date Object
@@ -635,20 +635,28 @@
         }
     }
 
-    function openIoTDevice(/*Type, IPAddress, DeviceName*/) {
-      //e.preventDefault();
-      //console.log(Type + ' ' + IPAddress + ' ' + DeviceName);
-      $('#LightSelector').show();
+        function openIoTDevice(/*Type, IPAddress, DeviceName*/) {
+          //e.preventDefault();
+          //console.log(Type + ' ' + IPAddress + ' ' + DeviceName);
+          $('#LightSelector').show();
 
 
-    }
-  </script>
-  <script>
-    /*let socket = io('http://localhost');
-    socket.on('news', function (data) {
-     console.log(data);
-      socket.emit('my other event', { my: 'data' });
-    });*/
-  </script>
+        }
+    </script>
+    <script>
+        let socket = io('/iot-control');
+
+        socket.on('client_data', function (clients) {
+            console.log(clients);
+        });
+
+        socket.on('new_client', function (client) {
+            console.log(client);
+        });
+
+        socket.on('remove_client', function (uuid) {
+            console.log(uuid);
+        });
+    </script>
 </body>
 </html>
